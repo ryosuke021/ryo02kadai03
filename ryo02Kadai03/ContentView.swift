@@ -19,8 +19,8 @@ struct ContentView: View {
     var body: some View {
         VStack {
             HStack {
-                numberView(numText: $numText1, isChangeToggle: $isChangeToggle1)
-                numberView(numText: $numText2, isChangeToggle: $isChangeToggle2)
+                NumberView(numText: $numText1, isChangeToggle: $isChangeToggle1)
+                NumberView(numText: $numText2, isChangeToggle: $isChangeToggle2)
             }
             Button("ボタン") {
                 calculate()
@@ -38,22 +38,31 @@ struct ContentView: View {
     }
     
     func calculate() {
-        var num1 = (Int(numText1)) ?? 0
-        var num2 = (Int(numText2)) ?? 0
-        
+        let num1 = (Int(numText1)) ?? 0
+        let num2 = (Int(numText2)) ?? 0
+
+        let signedNum1: Int
+        let signedNum2: Int
+
         if isChangeToggle1 {
-            num1 = -num1
+            signedNum1 = -num1
+        } else {
+            signedNum1 = num1
         }
+
         if isChangeToggle2 {
-            num2 = -num2
+            signedNum2 = -num2
+        } else {
+            signedNum2 = num2
         }
-        displayNum1 = num1
-        displayNum2 = num2
-        total = num1 + num2
+
+        displayNum1 = signedNum1
+        displayNum2 = signedNum2
+        total = signedNum1 + signedNum2
     }
 }
 
-struct numberView: View {
+struct NumberView: View {
     @Binding var numText: String
     @Binding var isChangeToggle: Bool
     
